@@ -1,8 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const ResumeModal = ({ isOpen, onClose }) => {
   const [pdfError, setPdfError] = useState(false);
   const [pdfLoaded, setPdfLoaded] = useState(false);
+  const [showFallback, setShowFallback] = useState(false);
+  
+  useEffect(() => {
+    if (isOpen) {
+      // Reset states when modal opens
+      setPdfError(false);
+      setPdfLoaded(false);
+      setShowFallback(false);
+      
+      // Set a timeout to show fallback if PDF doesn't load
+      const timeout = setTimeout(() => {
+        if (!pdfLoaded) {
+          setShowFallback(true);
+        }
+      }, 3000); // 3 seconds timeout
+      
+      return () => clearTimeout(timeout);
+    }
+  }, [isOpen, pdfLoaded]);
   
   if (!isOpen) return null;
 
@@ -57,61 +76,44 @@ export const ResumeModal = ({ isOpen, onClose }) => {
 
         {/* PDF Viewer */}
         <div className="flex-1 overflow-hidden relative">
-          {!pdfError ? (
-            <>
-              <iframe
-                src={`${resumeUrl}#view=FitH&toolbar=1&navpanes=0&scrollbar=1`}
-                className="w-full h-full min-h-[500px] sm:min-h-[600px]"
-                title="Resume PDF"
-                frameBorder="0"
-                allow="fullscreen"
-                onLoad={() => {
-                  setPdfLoaded(true);
-                  console.log('PDF loaded successfully');
-                }}
-                onError={() => {
-                  console.error('Failed to load PDF in iframe');
-                  setPdfError(true);
-                }}
-              />
-              {!pdfLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
-                  <div className="text-center text-gray-600 dark:text-gray-300">
-                    <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full mx-auto mb-2"></div>
-                    <p className="text-sm">Loading PDF...</p>
-                  </div>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="flex items-center justify-center h-full bg-gray-50 dark:bg-gray-700">
-              <div className="text-center p-8">
-                <div className="text-6xl text-gray-400 mb-4">📄</div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  PDF Preview Not Available
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Your browser doesn't support PDF preview in this modal.
+          <div className="flex items-center justify-center h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-700">
+            <div className="text-center p-8 max-w-md">
+              <div className="text-6xl mb-6">📄</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                View My Resume
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
+                Choose how you'd like to view my resume. Both options will show the full PDF document.
+              </p>
+              <div className="space-y-3">
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl group"
+                >
+                  <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Open in New Tab
+                </a>
+                <button
+                  onClick={handleDownload}
+                  className="flex items-center justify-center w-full px-6 py-3 bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition-all duration-200 shadow-md hover:shadow-lg group"
+                >
+                  <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download PDF
+                </button>
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  📎 PDF Size: ~4KB • Last Updated: Oct 2024
                 </p>
-                <div className="space-y-2">
-                  <button
-                    onClick={handleDownload}
-                    className="block w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    Download PDF
-                  </button>
-                  <a
-                    href={resumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
-                  >
-                    Open in New Tab
-                  </a>
-                </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Footer */}
