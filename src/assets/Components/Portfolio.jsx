@@ -15,14 +15,14 @@ export const Portfolio = () => {
 
   return (
     <section id="portfolio" className="bg-gray-800 font-display text-gray-200 min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 transition-colors duration-500">
-      <div className="w-full max-w-4xl space-y-12">
+      <div className="w-full max-w-4xl space-y-8 sm:space-y-12">
         {/* Profile Section */}
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="flex flex-col items-center gap-6 text-center"
+          className="flex flex-col items-center gap-4 sm:gap-6 text-center px-4"
         >
           <div className="relative">
             <motion.div
@@ -30,28 +30,28 @@ export const Portfolio = () => {
               whileInView={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="h-32 w-32 rounded-full bg-cover bg-center glow"
+              className="h-24 w-24 sm:h-32 sm:w-32 md:h-36 md:w-36 rounded-full bg-cover bg-center glow"
               style={{
                 backgroundImage:
                   'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDuhixyJwPhP4zo_-wdwmEdxsA-n83GatNUJlYDhKK4SFUSSIb14mOF2PTbKQHbRR-Ndh2hi9hYe0l-EJk4_XeZqv1Y-c5Jx3jpmljZmhb4R0Dr_3SVkOJa-bO3K58Dib4nTG03U5xtEPXsF5-L5UUehANd7xaBeELx_fybFqrmNnyXwBbVbj3XD1hwW1RZCaJByeBC7lU5rp3MYSXLghsROcmg94VF0SVS0Vsl8JtYjoY_wYS6F6jCBAqUGXcpY2R_yD1BSi29-MtK")',
               }}
             ></motion.div>
-            <span className="absolute bottom-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-4 ring-background-light dark:ring-background-dark">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/50 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary/80"></span>
+            <span className="absolute bottom-0 right-0 sm:bottom-1 sm:right-1 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-green-500 ring-2 sm:ring-4 ring-gray-800">
+              <span className="relative flex h-2 w-2 sm:h-3 sm:w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 sm:h-3 sm:w-3 bg-green-400"></span>
               </span>
             </span>
           </div>
 
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <div className="space-y-2 sm:space-y-3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
               Anshraj Singh Thakur
             </h1>
-            <p className="text-lg text-primary">
+            <p className="text-base sm:text-lg text-blue-400">
               AI & ML Engineer | Full Stack Developer
             </p>
-            <p className="max-w-2xl text-gray-600 dark:text-gray-400">
+            <p className="max-w-2xl text-sm sm:text-base text-gray-300 leading-relaxed px-2 sm:px-0">
               B.Tech in AI & ML with a passion for building intelligent web
               solutions. Strong skills in both frontend and backend development,
               creating seamless and smart user experiences.
@@ -65,13 +65,13 @@ export const Portfolio = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="space-y-6"
+          className="space-y-4 sm:space-y-6"
         >
-          <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-white">
             Core Skills
           </h2>
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
             {skills.map((skill, index) => (
               <motion.div
                 key={index}
@@ -79,14 +79,14 @@ export const Portfolio = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="skill-card group flex flex-col items-center gap-3 rounded-xl p-6 transition-all duration-300"
+                className="skill-card group flex flex-col items-center gap-2 sm:gap-3 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 transition-all duration-300"
               >
-                <div className="text-4xl text-primary">
+                <div className="text-2xl sm:text-3xl md:text-4xl text-blue-400">
                   <span className="material-symbols-outlined">
                     {skill.icon}
                   </span>
                 </div>
-                <h3 className="font-semibold text-gray-800 dark:text-gray-200">
+                <h3 className="text-xs sm:text-sm md:text-base font-semibold text-white text-center">
                   {skill.name}
                 </h3>
                 <div className="h-1 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">

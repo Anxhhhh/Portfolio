@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
+import { ResumeModal } from './ResumeModal';
 
 export const Contact = () => {
   const form = useRef();
@@ -10,6 +11,7 @@ export const Contact = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   // EmailJS configuration (you'll need to replace these with your actual values)
   const SERVICE_ID = 'service_5lul2qq'; // Replace with your EmailJS service ID
@@ -26,6 +28,19 @@ export const Contact = () => {
     if (status.message) {
       setStatus({ type: '', message: '' });
     }
+  };
+
+  const handleViewResume = () => {
+    setIsResumeModalOpen(true);
+  };
+
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/resume/Ansh_Resume.pdf';
+    link.download = 'Ansh_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleSubmit = async (e) => {
@@ -71,55 +86,69 @@ export const Contact = () => {
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 font-display text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-start">
+      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 items-start">
           {/* Left Section */}
-          <div className="flex flex-col space-y-12">
+          <div className="flex flex-col space-y-8 sm:space-y-10 lg:space-y-12">
             {/* Resume Section */}
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                 Resume
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 leading-relaxed">
                 View or download my resume to learn more about my skills and
-                experience as an AI &amp; ML Engineer and Full Stack Developer.
+                experience as an AI & ML Engineer and Full Stack Developer.
               </p>
-              <a
-                href="#"  
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 ease-in-out"
-              >
-                Download Resume
-                <svg
-                  aria-hidden="true"
-                  className="w-5 h-5 ml-2 -mr-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={handleViewResume}
+                  className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ease-in-out"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </a>
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  View Resume
+                </button>
+                <button
+                  onClick={handleDownloadResume}
+                  className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border border-blue-300 dark:border-blue-600 text-sm sm:text-base font-medium rounded-lg text-blue-600 dark:text-blue-400 bg-transparent hover:bg-blue-50 dark:hover:bg-blue-900/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ease-in-out"
+                >
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download Resume
+                </button>
+              </div>
             </div>
 
             {/* Connect Section */}
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
                 Connect with Me
               </h2>
-              <div className="flex space-x-6">
+              <div className="flex space-x-4 sm:space-x-6 justify-center sm:justify-start">
                 {/* GitHub */}
                 <a
                   href="https://github.com/Anxhhhh"
-                  className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20"
                 >
                   <span className="sr-only">GitHub</span>
                   <svg
                     aria-hidden="true"
-                    className="w-8 h-8"
+                    className="w-6 h-6 sm:w-8 sm:h-8"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -146,12 +175,14 @@ export const Contact = () => {
                 {/* LinkedIn */}
                 <a
                   href="https://www.linkedin.com/in/anshraj-singh-thakur-349ab533b/"
-                  className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20"
                 >
                   <span className="sr-only">LinkedIn</span>
                   <svg
                     aria-hidden="true"
-                    className="w-8 h-8"
+                    className="w-6 h-6 sm:w-8 sm:h-8"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -171,13 +202,13 @@ export const Contact = () => {
 
                 {/* Gmail */}
                 <a
-                  href="anshrajsingh62@gmail.com"
-                  className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300"
+                  href="mailto:anshrajsingh62@gmail.com"
+                  className="text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20"
                 >
                   <span className="sr-only">Gmail</span>
                   <svg
                     aria-hidden="true"
-                    className="w-8 h-8"
+                    className="w-6 h-6 sm:w-8 sm:h-8"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -195,14 +226,14 @@ export const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 lg:p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
               Get in Touch
             </h2>
             
             {/* Status Message */}
             {status.message && (
-              <div className={`mb-6 p-4 rounded-lg ${
+              <div className={`mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg ${
                 status.type === 'success' 
                   ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
                   : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200'
@@ -222,7 +253,7 @@ export const Contact = () => {
               </div>
             )}
             
-            <form ref={form} className="space-y-6" onSubmit={handleSubmit}>
+            <form ref={form} className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -319,6 +350,12 @@ export const Contact = () => {
           </div>
         </div>
       </main>
+      
+      {/* Resume Modal */}
+      <ResumeModal 
+        isOpen={isResumeModalOpen} 
+        onClose={() => setIsResumeModalOpen(false)} 
+      />
     </div>
   );
 };

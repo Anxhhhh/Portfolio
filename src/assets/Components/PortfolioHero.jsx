@@ -8,12 +8,12 @@ export const PortfolioHero = () => {
       <div className="glow-effect"></div>
 
       {/* Content Section */}
-      <div className="relative z-10 text-center px-6">
+      <div className="relative z-10 text-center px-4 sm:px-6">
         <motion.h1 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-6xl md:text-8xl font-black text-gray-100 dark:text-white mb-2 tracking-tighter"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-2 sm:mb-4 tracking-tighter"
         >
           Ansh
         </motion.h1>
@@ -21,7 +21,7 @@ export const PortfolioHero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-lg md:text-xl font-medium text-gray-300 dark:text-gray-400 mb-8"
+          className="text-base sm:text-lg md:text-xl font-medium text-gray-300 mb-6 sm:mb-8 px-2"
         >
           AI & ML Engineer | Full Stack Developer
         </motion.p>
@@ -30,7 +30,7 @@ export const PortfolioHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           href="#projects"
-          className="group relative inline-flex items-center justify-center px-10 py-4 text-lg font-bold text-gray-900 transition-all duration-500 ease-out transform hover:scale-110 focus:scale-110"
+          className="group relative inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold text-gray-900 transition-all duration-500 ease-out transform hover:scale-105 sm:hover:scale-110 focus:scale-105 sm:focus:scale-110"
         >
           {/* Button Background with Glass Effect */}
           <div className="absolute inset-0 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl group-hover:bg-white transition-all duration-500"></div>
@@ -43,9 +43,10 @@ export const PortfolioHero = () => {
           
           {/* Button Content */}
           <span className="relative flex items-center z-10 group-hover:text-white transition-colors duration-500">
-            <span className="mr-3 text-2xl">🚀</span>
-            View My Work
-            <svg className="ml-3 w-6 h-6 transition-all duration-500 group-hover:translate-x-2 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="mr-2 sm:mr-3 text-xl sm:text-2xl">🚀</span>
+            <span className="hidden sm:inline">View My Work</span>
+            <span className="sm:hidden">My Work</span>
+            <svg className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 transition-all duration-500 group-hover:translate-x-1 sm:group-hover:translate-x-2 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </span>
@@ -70,13 +71,21 @@ export const PortfolioHero = () => {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 300px;
-          height: 300px;
+          width: 200px;
+          height: 200px;
           background: radial-gradient(circle, rgba(13, 166, 242, 0.3) 0%, transparent 70%);
           transform: translate(-50%, -50%);
-          filter: blur(100px);
+          filter: blur(80px);
           animation: glowing 8s alternate infinite;
           z-index: 0;
+        }
+        
+        @media (min-width: 640px) {
+          .glow-effect {
+            width: 300px;
+            height: 300px;
+            filter: blur(100px);
+          }
         }
       `}</style>
     </section>
