@@ -1,8 +1,76 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import emailjs from '@emailjs/browser';
 
 export const Contact = () => {
+  const form = useRef();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  // EmailJS configuration (you'll need to replace these with your actual values)
+  const SERVICE_ID = 'service_5lul2qq'; // Replace with your EmailJS service ID
+  const TEMPLATE_ID = 'template_zuoq36h'; // Replace with your EmailJS template ID
+  const PUBLIC_KEY = 'a3rRLyVvjIkv18E_t'; // Replace with your EmailJS public key
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear status when user starts typing
+    if (status.message) {
+      setStatus({ type: '', message: '' });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setStatus({ type: '', message: '' });
+
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      setStatus({ type: 'error', message: 'Please fill in all fields.' });
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.sendForm(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        form.current,
+        PUBLIC_KEY
+      );
+
+      console.log('Email sent successfully:', result.text);
+      setStatus({ 
+        type: 'success', 
+        message: 'Thank you! Your message has been sent successfully. I\'ll get back to you soon!' 
+      });
+      
+      // Reset form
+      setFormData({ name: '', email: '', message: '' });
+      form.current.reset();
+    } catch (error) {
+      console.error('Failed to send email:', error.text);
+      setStatus({ 
+        type: 'error', 
+        message: 'Sorry, there was an error sending your message. Please try again or contact me directly.' 
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <div className="bg-gray-50 dark:bg-gray-900 font-display text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-start">
           {/* Left Section */}
@@ -17,7 +85,7 @@ export const Contact = () => {
                 experience as an AI &amp; ML Engineer and Full Stack Developer.
               </p>
               <a
-                href="#"
+                href="#"  
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 ease-in-out"
               >
                 Download Resume
@@ -45,7 +113,7 @@ export const Contact = () => {
               <div className="flex space-x-6">
                 {/* GitHub */}
                 <a
-                  href="#"
+                  href="https://github.com/Anxhhhh"
                   className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300"
                 >
                   <span className="sr-only">GitHub</span>
@@ -77,7 +145,7 @@ export const Contact = () => {
 
                 {/* LinkedIn */}
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/anshraj-singh-thakur-349ab533b/"
                   className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300"
                 >
                   <span className="sr-only">LinkedIn</span>
@@ -103,7 +171,7 @@ export const Contact = () => {
 
                 {/* Gmail */}
                 <a
-                  href="mailto:anshemail@example.com"
+                  href="anshrajsingh62@gmail.com"
                   className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300"
                 >
                   <span className="sr-only">Gmail</span>
@@ -127,11 +195,34 @@ export const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
               Get in Touch
             </h2>
-            <form className="space-y-6" method="POST">
+            
+            {/* Status Message */}
+            {status.message && (
+              <div className={`mb-6 p-4 rounded-lg ${
+                status.type === 'success' 
+                  ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
+                  : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200'
+              }`}>
+                <div className="flex items-center">
+                  {status.type === 'success' ? (
+                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                  <span className="text-sm font-medium">{status.message}</span>
+                </div>
+              </div>
+            )}
+            
+            <form ref={form} className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -144,9 +235,13 @@ export const Contact = () => {
                     type="text"
                     id="name"
                     name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="Your Name"
                     autoComplete="name"
-                    className="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-primary focus:border-primary placeholder-gray-400 dark:placeholder-gray-500 py-3 px-4"
+                    required
+                    disabled={isLoading}
+                    className="block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 placeholder-gray-400 dark:placeholder-gray-500 py-3 px-4 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
               </div>
@@ -163,10 +258,13 @@ export const Contact = () => {
                     type="email"
                     id="email"
                     name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     required
-                    className="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-primary focus:border-primary placeholder-gray-400 dark:placeholder-gray-500 py-3 px-4"
+                    disabled={isLoading}
+                    className="block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 placeholder-gray-400 dark:placeholder-gray-500 py-3 px-4 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
               </div>
@@ -182,9 +280,13 @@ export const Contact = () => {
                   <textarea
                     id="message"
                     name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows="4"
                     placeholder="Let's build something amazing together..."
-                    className="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-primary focus:border-primary placeholder-gray-400 dark:placeholder-gray-500 py-3 px-4"
+                    required
+                    disabled={isLoading}
+                    className="block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 placeholder-gray-400 dark:placeholder-gray-500 py-3 px-4 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed resize-vertical"
                   ></textarea>
                 </div>
               </div>
@@ -192,9 +294,25 @@ export const Contact = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark focus:ring-primary transition-all duration-300 ease-in-out"
+                  disabled={isLoading}
+                  className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-all duration-200 ease-in-out"
                 >
-                  Send Message
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                      </svg>
+                    </>
+                  )}
                 </button>
               </div>
             </form>
