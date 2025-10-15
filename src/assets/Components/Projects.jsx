@@ -2,6 +2,16 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export const Projects = () => {
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <section id="projects" className="bg-gray-700 font-display text-gray-200 relative flex min-h-screen w-full flex-col overflow-x-hidden">
 
@@ -19,33 +29,22 @@ export const Projects = () => {
               Projects
             </h1>
             <p className="mt-2 text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
-              A selection of my featured work and innovative solutions.
+              Showcasing my latest project with modern development practices.
             </p>
           </motion.div>
 
           {/* PROJECT CARDS */}
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {[
+          <div className="flex justify-center">
+            <div className="w-full max-w-md sm:max-w-lg">
+          {[
               {
-                title: "AI-Powered Chatbot",
+                title: "Weather App",
                 description:
-                  "A conversational AI assistant for customer support, leveraging natural language processing.",
+                  "A modern weather application with real-time forecasts, location-based weather data, and beautiful UI animations.",
                 image:
-                  "https://lh3.googleusercontent.com/aida-public/AB6AXuCjtMJsQ7Zpo8n6glyIAtm9lE3xJoJvYTXFZ0r0aU6_cNTUIZITtNLWLmiPFta7oH3-8i8OxLH6g364wROtWXU8uiBnOdwXva1A4poJoyjsiYZw196HurgL9G5b_EkQK8yRcevNoOhxqTgek_U7Mh8AB1uckZ6BQWS0tYZe5ScYh-UuCpHtIP1jfbNBlJoF-GE5rQwGaehWnq_Vf7WwTLaRwHiETJ0tbL0vgVP2D0e6nYitsQbNlKfethx4hO4GNQTM3w4al5M9jqcE",
-              },
-              {
-                title: "E-commerce Platform",
-                description:
-                  "A full-featured online store with user authentication and payment integration.",
-                image:
-                  "https://lh3.googleusercontent.com/aida-public/AB6AXuA7_XpBhI6fDY1dkngNn9ERRVSohj0SsZPaz1eqG4VRfgc6c-vPzJMvXz8mUDeb5BPROcC-MzCZmMt43qY2nAOIEnt_NsZuNg33DrhkT7gYUlEJHyF28Yb1E_nyCoJhQFcsokW7B_mqP5cxLuSdxJZRKz6t_7u-O09YVtNL-G3X08z2qvEthyrK3S2BLsPIXCkqOxqTeM3-ToaYUYldGvD3DYdNIT7l3g6TxTci6WCe_JeCusLy_FTcKf8OWzuTfrTVQFnotMeV81VC",
-              },
-              {
-                title: "Data Analysis Dashboard",
-                description:
-                  "An interactive dashboard for visualizing and analyzing large datasets.",
-                image:
-                  "https://lh3.googleusercontent.com/aida-public/AB6AXuBj70n51D5OYm9fI5PqeooMEGXYJOG-YWjVvWstxGmNidqE4L9L9LbJOBJljW3dd8CLX3i-A4PjcD8nlnFXxxqbHpiCXpgfCab8eCTdEyIWkEyCY0yQSgz0QTH9EaBY83xK_NKqMKP-Tp9v46a2iEl-VUxfSvPIPxM_b83BCKLJFWI_lLb91VjsROiKHY0iPu8WP8BuQoWTmaj-5bYpPgqRCjx2dGsXsHyGYOoai5dDxOBF4UyGDULF3lYSUAifk3XfGp3pnmiHB3Y9",
+                  "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                github: "https://github.com/Anxhhhh/WeatherApp",
+                demo: "https://anshweatherapp.netlify.app/"
               },
             ].map((project, index) => (
               <motion.div
@@ -72,7 +71,9 @@ export const Projects = () => {
                    </p>
                   <div className="mt-4 flex items-center justify-center sm:justify-end gap-2 sm:gap-3">
                     <a
-                      href="#"
+                      href={project.github || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="rounded-full bg-blue-400/20 px-3 py-1.5 text-xs sm:text-sm font-semibold text-blue-400 hover:bg-blue-400/30 transition-colors flex items-center gap-1"
                     >
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
@@ -81,7 +82,9 @@ export const Projects = () => {
                       GitHub
                     </a>
                     <a
-                      href="#"
+                      href={project.demo || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="rounded-full bg-green-400/20 px-3 py-1.5 text-xs sm:text-sm font-semibold text-green-400 hover:bg-green-400/30 transition-colors flex items-center gap-1"
                     >
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,6 +96,7 @@ export const Projects = () => {
                 </div>
               </motion.div>
             ))}
+            </div>
           </div>
 
           {/* BUTTONS */}
@@ -109,7 +113,7 @@ export const Projects = () => {
               </svg>
               View All Projects
             </button>
-            <button className="flex w-full sm:w-auto items-center justify-center rounded-lg bg-blue-400/20 hover:bg-blue-400/30 px-6 sm:px-8 py-3 text-sm sm:text-base font-bold text-blue-400 transition-colors">
+            <button onClick={scrollToContact} className="flex w-full sm:w-auto items-center justify-center rounded-lg bg-blue-400/20 hover:bg-blue-400/30 hover:scale-105 px-6 sm:px-8 py-3 text-sm sm:text-base font-bold text-blue-400 transition-all duration-300 cursor-pointer">
               <svg className="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>

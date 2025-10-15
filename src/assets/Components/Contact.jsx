@@ -85,7 +85,7 @@ export const Contact = () => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 font-display text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <section id="contact" className="bg-gray-50 dark:bg-gray-900 font-display text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 items-start">
           {/* Left Section */}
@@ -356,6 +356,6 @@ export const Contact = () => {
         isOpen={isResumeModalOpen} 
         onClose={() => setIsResumeModalOpen(false)} 
       />
-    </div>
+    </section>
   );
 };
