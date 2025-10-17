@@ -3,91 +3,37 @@ import { motion } from "framer-motion";
 
 export const PortfolioHero = () => {
   return (
-    <section id="hero" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-gray-900 font-display text-gray-100 antialiased">
-      {/* Glowing Background Effect */}
-      <div className="glow-effect"></div>
+    <section id="hero" className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <div className="text-center px-4 max-w-4xl mx-auto">
 
-      {/* Content Section */}
-      <div className="relative z-10 text-center px-4 sm:px-6">
         <motion.h1 
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-2 sm:mb-4 tracking-tighter"
+          transition={{ duration: 0.6 }}
+          className="text-5xl md:text-7xl font-bold mb-6"
         >
-          Ansh
+          ANSH
         </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 30 }}
+        
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-base sm:text-lg md:text-xl font-medium text-gray-300 mb-6 sm:mb-8 px-2"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-xl md:text-2xl text-gray-300 mb-8"
         >
           AI & ML Engineer | Full Stack Developer
         </motion.p>
+        
         <motion.a
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           href="#projects"
-          className="group relative inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold text-gray-900 transition-all duration-500 ease-out transform hover:scale-105 sm:hover:scale-110 focus:scale-105 sm:focus:scale-110"
+          className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300"
         >
-          {/* Button Background with Glass Effect */}
-          <div className="absolute inset-0 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl group-hover:bg-white transition-all duration-500"></div>
-          
-          {/* Animated Border Glow */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-md scale-110"></div>
-          
-          {/* Inner Border */}
-          <div className="absolute inset-[1px] bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          {/* Button Content */}
-          <span className="relative flex items-center z-10 group-hover:text-white transition-colors duration-500">
-            <span className="mr-2 sm:mr-3 text-xl sm:text-2xl">🚀</span>
-            <span className="hidden sm:inline">View My Work</span>
-            <span className="sm:hidden">My Work</span>
-            <svg className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 transition-all duration-500 group-hover:translate-x-1 sm:group-hover:translate-x-2 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </span>
-          
-          {/* Shimmer Effect */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+          View My Work
         </motion.a>
       </div>
-
-      {/* Inline CSS for Glow Effect */}
-      <style jsx>{`
-        @keyframes glowing {
-          0% {
-            box-shadow: 0 0 5px #0da6f2, 0 0 10px #0da6f2, 0 0 20px #0da6f2, 0 0 40px #0da6f2;
-          }
-          100% {
-            box-shadow: 0 0 20px #0da6f2, 0 0 40px #0da6f2, 0 0 80px #0da6f2, 0 0 100px #0da6f2;
-          }
-        }
-
-        .glow-effect {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 200px;
-          height: 200px;
-          background: radial-gradient(circle, rgba(13, 166, 242, 0.3) 0%, transparent 70%);
-          transform: translate(-50%, -50%);
-          filter: blur(80px);
-          animation: glowing 8s alternate infinite;
-          z-index: 0;
-        }
-        
-        @media (min-width: 640px) {
-          .glow-effect {
-            width: 300px;
-            height: 300px;
-            filter: blur(100px);
-          }
-        }
-      `}</style>
     </section>
   );
 };
