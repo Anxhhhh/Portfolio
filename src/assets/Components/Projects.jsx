@@ -35,7 +35,7 @@ export const Projects = () => {
 
           {/* PROJECT CARDS */}
           <div className="flex justify-center">
-            <div className="w-full max-w-md sm:max-w-lg">
+            <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {[
               {
                 title: "Weather App",
@@ -45,7 +45,15 @@ export const Projects = () => {
                   "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
                 github: "https://github.com/Anxhhhh/WeatherApp",
                 demo: "https://anshweatherapp.netlify.app/"
-              },
+              },{
+                title: "NeuroKart",
+                description:
+                  "A modern fashion storefront with real-time inventory, swift product discovery, secure checkout, and smooth UI animations.",
+                image:
+                  "https://videos.openai.com/az/vg-assets/assets%2Ftask_01k8a7m6nce1qv08k5c0rtjsgm%2F1761280227_img_1.webp?se=2025-10-30T04%3A30%3A28Z&sp=r&sv=2024-08-04&sr=b&skoid=8ebb0df1-a278-4e2e-9c20-f2d373479b3a&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-10-24T04%3A20%3A03Z&ske=2025-10-31T04%3A25%3A03Z&sks=b&skv=2024-08-04&sig=DyvOcaPFEVd3USUcOpJr0bNiy7D7ClMQxSy7Cvwpt9Y%3D&ac=oaivgprodscus",
+                github: "https://github.com/Anxhhhh/E-commerce",
+                demo: "https://neurokart.netlify.app/"
+              }
             ].map((project, index) => (
               <motion.div
                 key={index}
@@ -53,7 +61,7 @@ export const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="group flex flex-col overflow-hidden rounded-lg sm:rounded-xl bg-gray-800/50 border border-gray-600/20 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-400/10"
+                className="group h-full flex flex-col overflow-hidden rounded-lg sm:rounded-xl bg-gray-800/50 border border-gray-600/20 transition-all duration-300 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-400/10"
               >
                 <div className="relative w-full aspect-video overflow-hidden">
                   <div
